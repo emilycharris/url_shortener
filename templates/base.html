@@ -1,0 +1,49 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>emi.ly</title>
+    <link rel="stylesheet" href="{% static 'short_url_app/bootstrap-3.3.6-dist/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'short_url_app/main.css' %}">
+</head>
+<body>
+<div class="container">
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false"></button>
+
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+
+          {% if request.user.is_authenticated %}
+            <li><a href="{% url 'index_view' %}">Home</a></li>
+            <li><a href="{% url 'create_bookmark_view' %}">Create Bookmark</a></li>
+            <li><a href="{% url 'profile_view' %}">Profile for {{ user }}</a></li>
+            <li><a href="{% url 'logout_view' %}?next={% url 'login_view' %}">Logout</a></li>
+          {% else %}
+            <li><a href="{% url 'create_user_view' %}">Create An Account</a></li>
+            <li><a href="{% url 'login_view' %}">Login</a></li>
+          {% endif %}
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+
+{% block header %}
+    <div class="page-header">
+    <h1>emi.ly <small>shorten your URLs: </small></h1>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <h1>hello world</h1>
+{% endblock %}
+</div>
