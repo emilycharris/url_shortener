@@ -1,1 +1,14 @@
 {% extends "base.html" %}
+
+{% block content %}
+    <ul>
+    {% for object in object_list %}
+    <li>{{ object.user }}
+    {{ object.url }}
+    {{ object.description }}
+    {{ object.created }}
+    {{ object.hashid }}</li>
+    {% endfor %}
+</ul>
+{% endblock %}
+

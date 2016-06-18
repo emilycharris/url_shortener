@@ -1,3 +1,4 @@
+from hashids import Hashids
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
@@ -27,11 +28,18 @@ class CreateBookmarkView(CreateView):
     def form_valid(self, form):
         bookmark = form.save(commit=False)
         bookmark.user = self.request.user
+        hashid = Hashids()
+        bookmark.hashid = hashid.encode(id(bookmark.url))
         return super(CreateBookmarkView, self).form_valid(form)
 
 
-class ProfileView(TemplateView):
+class ProfileView(ListView):
     template_name = "profile.html"
+    model = Bookmark
+
+
+
+
 
 class EditView(FormView):
     template_name = "edit.html"

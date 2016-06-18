@@ -17,6 +17,11 @@ class Bookmark(models.Model):
     user = models.ForeignKey(User)
     url = models.URLField()
     description = models.CharField(max_length=100)
+    created = models.DateTimeField(auto_now_add=True)
+    hashid = models.CharField(max_length=50)
+
+    class Meta:
+        ordering = ['-created']
 
 
 class Click(models.Model):
