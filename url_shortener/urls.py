@@ -15,17 +15,19 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import logout, login
 
-from short_url_app.views import IndexView, CreateUserView, ProfileView, EditView, CreateBookmarkView
+from short_url_app.views import IndexView, CreateUserView, ProfileView, CreateBookmarkView, EditView, RemoveView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', IndexView.as_view(), name='index_view'),
     url(r'^login/$', login, name='login_view'),
     url(r'^create_user/$', CreateUserView.as_view(), name='create_user_view'),
-    url(r'^accounts/profile/$', ProfileView.as_view(), name='profile_view'),
-    url(r'^edit/$', EditView.as_view(), name='edit_view'),
+    url(r'^accounts/profile/$', login_required(ProfileView.as_view()), name='profile_view'),
     url(r'^logout/$', logout, name='logout_view'),
-    url(r'^create_bookmark/$', CreateBookmarkView.as_view(), name='create_bookmark_view')
+    url(r'^create_bookmark/$', CreateBookmarkView.as_view(), name='create_bookmark_view'),
+    url(r'^update/(?P<pk>\d+)/$', login_required(EditView.as_view()), name='update_view'),
+    url(r'^delete/(?P<pk>\d+)/$', login_required(RemoveView.as_view()), name='delete_view')
 ]

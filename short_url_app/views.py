@@ -1,3 +1,4 @@
+from django.utils.decorators import method_decorator
 from hashids import Hashids
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
@@ -5,7 +6,8 @@ from django.contrib.auth.models import User
 from django.shortcuts import render
 
 # Create your views here.
-from django.views.generic import CreateView, TemplateView, ListView, FormView
+from django.views.generic import CreateView, TemplateView, ListView
+from django.views.generic.edit import UpdateView, DeleteView
 
 from short_url_app.models import Click, Bookmark
 
@@ -18,7 +20,6 @@ class CreateUserView(CreateView):
     form_class = UserCreationForm
     success_url = "/login"
 
-#@login_required
 class CreateBookmarkView(CreateView):
     template_name = 'create_bookmark.html'
     model = Bookmark
@@ -37,12 +38,19 @@ class ProfileView(ListView):
     template_name = "profile.html"
     model = Bookmark
 
+    def get_queryset(self):
+        return Bookmark.objects.filter(user=self.request.user)
 
 
+class EditView(UpdateView):
+    model = Bookmark
+    fields = ['url', "description"]
+    success_url = "/accounts/profile"
 
+class RemoveView(DeleteView):
+    model = Bookmark
+    success_url = '/accounts/profile'
 
-class EditView(FormView):
-    template_name = "edit.html"
 
 class UrlList(ListView):
     model = Click
