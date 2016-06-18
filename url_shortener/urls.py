@@ -17,8 +17,11 @@ from django.conf.urls import url
 from django.contrib import admin
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import logout, login
+from django.views.generic import RedirectView
 
-from short_url_app.views import IndexView, CreateUserView, ProfileView, CreateBookmarkView, EditView, RemoveView
+from short_url_app.views import IndexView, CreateUserView, ProfileView, CreateBookmarkView, EditView, RemoveView, DisplayRedirectView
+
+
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -27,7 +30,8 @@ urlpatterns = [
     url(r'^create_user/$', CreateUserView.as_view(), name='create_user_view'),
     url(r'^accounts/profile/$', login_required(ProfileView.as_view()), name='profile_view'),
     url(r'^logout/$', logout, name='logout_view'),
-    url(r'^create_bookmark/$', CreateBookmarkView.as_view(), name='create_bookmark_view'),
+    url(r'^create_bookmark/$', login_required(CreateBookmarkView.as_view()), name='create_bookmark_view'),
     url(r'^update/(?P<pk>\d+)/$', login_required(EditView.as_view()), name='update_view'),
-    url(r'^delete/(?P<pk>\d+)/$', login_required(RemoveView.as_view()), name='delete_view')
+    url(r'^delete/(?P<pk>\d+)/$', login_required(RemoveView.as_view()), name='delete_view'),
+    url(r'^(?P<hashid>\w+)/$', DisplayRedirectView.as_view(), name="redirect_view")
 ]

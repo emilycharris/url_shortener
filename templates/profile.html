@@ -2,12 +2,13 @@
 
 {% block content %}
     <ul>
-    {% for bookmark in bookmark_list %}
+    {% for bookmark in object_list %}
     <li>
         {{ bookmark.description }}
-        <a href="{{ bookmark.url }}">emi.ly/{{ bookmark.hashid }}</a>
+         <span><a href="{% url 'redirect_view' bookmark.hashid %}">emi.ly/{{ bookmark.hashid }}</a></span>
         <span><a href="{% url 'update_view' pk=bookmark.id %}">edit</a> /</span>
         <span><a href="{% url 'delete_view' pk=bookmark.id %}">delete</a></span>
+        <span>Click Count: {{ bookmark.click_count }}</span>
     </li> 
 
 

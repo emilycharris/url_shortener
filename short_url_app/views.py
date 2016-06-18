@@ -6,10 +6,11 @@ from django.contrib.auth.models import User
 from django.shortcuts import render
 
 # Create your views here.
-from django.views.generic import CreateView, TemplateView, ListView
+from django.views.generic import CreateView, TemplateView, ListView, RedirectView
 from django.views.generic.edit import UpdateView, DeleteView
 
 from short_url_app.models import Click, Bookmark
+
 
 
 class IndexView(TemplateView):
@@ -52,7 +53,18 @@ class RemoveView(DeleteView):
     success_url = '/accounts/profile'
 
 
-class UrlList(ListView):
-    model = Click
+class DisplayRedirectView(RedirectView):
+
+    def get(self, request, *args, **kwargs):
+        hashid = self.kwargs.get('hashid', None)
+        link = Bookmark.objects.get(hashid=hashid)
+        self.url = link.url
+        link.click_count += 1
+        link.save()
+        return super(DisplayRedirectView, self).get(request, args, **kwargs)
+
+
+
+
 
 
