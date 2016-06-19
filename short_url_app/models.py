@@ -16,10 +16,12 @@ from django.utils import timezone
 class Bookmark(models.Model):
     user = models.ForeignKey(User)
     url = models.URLField()
-    description = models.CharField(max_length=100)
+    title = models.CharField(max_length=20, default="")
+    description = models.CharField(max_length=30, blank=True)
     created = models.DateTimeField(auto_now_add=True)
     hashid = models.CharField(max_length=50)
     click_count = models.IntegerField(default=0)
+    private = models.BooleanField(default=False)
 
     class Meta:
         ordering = ['-created']
@@ -28,4 +30,7 @@ class Bookmark(models.Model):
 class Click(models.Model):
     url = models.ForeignKey(Bookmark)
     created = models.DateTimeField()
+
+    class Meta:
+        ordering = ['-created']
 

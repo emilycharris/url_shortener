@@ -1,20 +1,26 @@
-from django.utils.decorators import method_decorator
+import datetime
+
 from hashids import Hashids
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.shortcuts import render
 
 # Create your views here.
-from django.views.generic import CreateView, TemplateView, ListView, RedirectView
+from django.views.generic import CreateView, ListView, RedirectView
 from django.views.generic.edit import UpdateView, DeleteView
 
 from short_url_app.models import Click, Bookmark
 
 
 
-class IndexView(TemplateView):
+class IndexView(ListView):
     template_name = "index.html"
+    model = Bookmark
+
+    def get_queryset(self):
+        return Bookmark.objects.filter(private=False)
+
+
 
 class CreateUserView(CreateView):
     model = User
@@ -24,7 +30,7 @@ class CreateUserView(CreateView):
 class CreateBookmarkView(CreateView):
     template_name = 'create_bookmark.html'
     model = Bookmark
-    fields = ['url', "description"]
+    fields = ['url', "title", "description"]
     success_url = "/accounts/profile"
 
     def form_valid(self, form):
@@ -45,7 +51,7 @@ class ProfileView(ListView):
 
 class EditView(UpdateView):
     model = Bookmark
-    fields = ['url', "description"]
+    fields = ['url', 'title', "description", "private"]
     success_url = "/accounts/profile"
 
 class RemoveView(DeleteView):
@@ -61,6 +67,7 @@ class DisplayRedirectView(RedirectView):
         self.url = link.url
         link.click_count += 1
         link.save()
+        Click.objects.create(url=link, created=datetime.datetime.now())
         return super(DisplayRedirectView, self).get(request, args, **kwargs)
 
 

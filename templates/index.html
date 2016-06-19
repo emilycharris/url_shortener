@@ -1,4 +1,34 @@
 {% extends "base.html" %}
+<div class="container">
 {% block content %}
-<h1>hello world</h1>
+<h4>recent public bookmarks</h4>
+    <br>
+<div class="table-responsive">
+<table class="table">
+    <th>user</th>
+    <th>title</th>
+    <th>url</th>
+    <th>edit</th>
+    <th>delete</th>
+    <tbody></tbody>
+{% for bookmark in object_list %}
+        <tr>
+        <td><a href="{% url 'profile_view' %}">{{ bookmark.user }}</a></td>
+        <td>{{ bookmark.title }}</td>
+        <td><a href="{% url 'redirect_view' bookmark.hashid %}">emi.ly/{{ bookmark.hashid }}</a></td>
+        {% if bookmark.user == request.user %}
+            <td><a href="{% url 'update_view' pk=bookmark.id %}">edit</a></td>
+            <td><a href="{% url 'delete_view' pk=bookmark.id %}">delete</a></td>
+        {% else %}
+            <td></td>
+            <td></td>
+        {% endif %}
+
+        </tr>
+    {% endfor %}
+
+</table>
+</div>
+
 {% endblock %}
+</div>
