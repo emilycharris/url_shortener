@@ -3,13 +3,11 @@ import datetime
 from hashids import Hashids
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from django.shortcuts import render
-
-# Create your views here.
 from django.views.generic import CreateView, ListView, RedirectView
 from django.views.generic.edit import UpdateView, DeleteView
-
 from short_url_app.models import Click, Bookmark
+
+# Create your views here.
 
 
 
@@ -17,15 +15,16 @@ class IndexView(ListView):
     template_name = "index.html"
     model = Bookmark
 
+
     def get_queryset(self):
         return Bookmark.objects.filter(private=False)
-
 
 
 class CreateUserView(CreateView):
     model = User
     form_class = UserCreationForm
     success_url = "/login"
+
 
 class CreateBookmarkView(CreateView):
     template_name = 'create_bookmark.html'
