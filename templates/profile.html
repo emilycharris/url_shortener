@@ -6,30 +6,40 @@
     <br>
 <div class="table-responsive">
 <table class="table">
+<thead>
+  <tr>
     <th>title</th>
+    <th>description</th>
     <th>url</th>
-    <th>clicks</th>
-    <th>private</th>
-    <th>edit</th>
-    <th>delete</th>
-    <tbody></tbody>
+    <th class='table-centered'>clicks</th>
+    <th class='table-centered'>private</th>
+    <th></th>
+    <th></th>
+  </tr>
+</thead>
+<tbody>
 {% for bookmark in object_list %}
         <tr>
         <td>{{ bookmark.title }}</td>
+        <td>{{ bookmark.description }}</td>
         <td><a href="{% url 'redirect_view' bookmark.hashid %}">emi.ly/{{ bookmark.hashid }}</a></td>
-        <td>{{ bookmark.click_count }}</td>
-         <td>{{ bookmark.private }}</td>
+        <td class='table-centered'>{{ bookmark.click_count }}</td>
+          {% if bookmark.private = True %}
+          <td class='table-centered'><i class=' glyphicon glyphicon-ok'></i> yes</td>
+          {% else %}
+          <td class='table-centered'><i class=' glyphicon glyphicon-remove'></i> no</td>
+          {% endif %}
+
         {% if bookmark.user == request.user %}
-            <td><a class='btn btn-default' href="{% url 'update_view' pk=bookmark.id %}">edit</a></td>
-            <td><a class='btn btn-default' href="{% url 'delete_view' pk=bookmark.id %}">delete</a></td>
+            <td class='table-centered'><a href="{% url 'update_view' pk=bookmark.id %}">edit</a></td>
+            <td class='table-centered'><a href="{% url 'delete_view' pk=bookmark.id %}">delete</a></td>
         {% else %}
             <td></td>
             <td></td>
         {% endif %}
-
         </tr>
-    {% endfor %}
-
+{% endfor %}
+</tbody>
 </table>
 </div>
 

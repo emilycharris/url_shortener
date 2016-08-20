@@ -17,7 +17,7 @@ class Bookmark(models.Model):
     user = models.ForeignKey(User)
     url = models.URLField()
     title = models.CharField(max_length=20, default="")
-    description = models.CharField(max_length=30, blank=True)
+    description = models.CharField(max_length=50, blank=True)
     created = models.DateTimeField(auto_now_add=True)
     hashid = models.CharField(max_length=50)
     click_count = models.IntegerField(default=0)
@@ -33,4 +33,3 @@ class Click(models.Model):
 
     class Meta:
         ordering = ['-created']
-

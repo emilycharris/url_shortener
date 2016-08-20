@@ -3,29 +3,33 @@
 {% block content %}
 <h4>recent public bookmarks</h4>
     <br>
-<div class="table-responsive">
-<table class="table">
-    <th>user</th>
-    <th>title</th>
-    <th>url</th>
-    <th>edit</th>
-    <th>delete</th>
-    <tbody></tbody>
-{% for bookmark in object_list %}
-        <tr>
-        <td><a href="{% url 'profile_view' %}">{{ bookmark.user }}</a></td>
-        <td>{{ bookmark.title }}</td>
-        <td><a href="{% url 'redirect_view' bookmark.hashid %}">emi.ly/{{ bookmark.hashid }}</a></td>
-        {% if bookmark.user == request.user %}
-            <td><a href="{% url 'update_view' pk=bookmark.id %}">edit</a></td>
-            <td><a href="{% url 'delete_view' pk=bookmark.id %}">delete</a></td>
-        {% else %}
-            <td></td>
-            <td></td>
-        {% endif %}
-        </tr>
-{% endfor %}
-</table>
-</div>
+    <div class="table-responsive">
+    <table class="table">
+    <thead>
+      <tr>
+        <th>title</th>
+        <th>description</th>
+        <th>url</th>
+        <th class='table-centered'>clicks</th>
+        <th class='table-centered'>private</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for bookmark in object_list %}
+            <tr>
+            <td>{{ bookmark.title }}</td>
+            <td>{{ bookmark.description }}</td>
+            <td><a href="{% url 'redirect_view' bookmark.hashid %}">emi.ly/{{ bookmark.hashid }}</a></td>
+            <td class='table-centered'>{{ bookmark.click_count }}</td>
+              {% if bookmark.private = True %}
+              <td class='table-centered'><i class=' glyphicon glyphicon-ok'></i> yes</td>
+              {% else %}
+              <td class='table-centered'><i class=' glyphicon glyphicon-remove'></i> no</td>
+              {% endif %}
+            </tr>
+    {% endfor %}
+    </tbody>
+    </table>
+    </div>
 {% endblock %}
 </div>
