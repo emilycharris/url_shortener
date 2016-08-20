@@ -2,7 +2,7 @@
 
 {% block content %}
 
-    <h4>bookmarks</h4>
+    <h4>{{request.user}}'s bookmarks</h4>
     <br>
 <div class="table-responsive">
 <table class="table">
@@ -20,8 +20,8 @@
         <td>{{ bookmark.click_count }}</td>
          <td>{{ bookmark.private }}</td>
         {% if bookmark.user == request.user %}
-            <td><a href="{% url 'update_view' pk=bookmark.id %}">edit</a></td>
-            <td><a href="{% url 'delete_view' pk=bookmark.id %}">delete</a></td>
+            <td><a class='btn btn-default' href="{% url 'update_view' pk=bookmark.id %}">edit</a></td>
+            <td><a class='btn btn-default' href="{% url 'delete_view' pk=bookmark.id %}">delete</a></td>
         {% else %}
             <td></td>
             <td></td>
@@ -31,7 +31,6 @@
     {% endfor %}
 
 </table>
-
-{% endblock %}
 </div>
 
+{% endblock %}

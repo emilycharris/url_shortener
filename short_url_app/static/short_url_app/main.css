@@ -1,0 +1,87 @@
+html,
+body {
+  height: 100%;
+  /* The html and body elements cannot have any padding or margin. */
+}
+
+/* Wrapper for page content to push down footer */
+#wrap {
+  min-height: 100%;
+  height: auto;
+  /* Negative indent footer by its height */
+  margin: 0 auto -40px;
+  /* Pad bottom by footer height */
+  padding: 0 0 40px;
+}
+
+/* Set the fixed height of the footer here */
+.footer {
+  height: 40px;
+  color: white;
+  background-color: #04996f;
+}
+
+
+body {
+  background-color: white;
+}
+
+
+/* navbar */
+.navbar-default {
+  background-color: #04996f;
+  border-color: #E7E7E7;
+}
+
+.navbar-default .navbar-nav li a {
+  color: white;
+}
+
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus {
+  color: #cdd2d5;
+  background-color: transparent;
+}
+
+ul.nav.navbar-nav.navbar-right {
+  text-align: right;
+}
+
+.navbar-default.navbar-brand {
+  color: lightblue
+}
+
+.navbar-default .navbar-brand {
+  color: lightblue;
+}
+
+@media (min-width: 768px){
+  .navbar-nav {
+    float: none;
+  }
+}
+
+
+.page-header {
+  margin-top: 20px;
+  border-bottom: 2px solid #04996f;
+}
+
+.btn-default {
+  color: white;
+  background-color: #04996f
+}
+
+.text-right {
+  text-align: right;
+  font-size: 12px;
+  margin-bottom: 0px;
+  margin-top: 15px;
+}
+
+.text-left {
+  text-align: left;
+  font-size: 12px;
+  margin-bottom: 0px;
+  margin-top: 15px;
+}
