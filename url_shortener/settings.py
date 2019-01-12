@@ -25,7 +25,7 @@ SECRET_KEY = 'j(_foclg4nfokf4&*6y_kikwp*k6_17xc+ndc))3p5kd%lmcgz'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['emily-url-shortener.herokuapp.com', '127.0.0.1']
+ALLOWED_HOSTS = ['emily-url-shortener.herokuapp.com', '127.0.0.1', 'localhost']
 
 
 # Application definition
