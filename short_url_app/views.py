@@ -52,6 +52,7 @@ class EditView(UpdateView):
     model = Bookmark
     fields = ['url', 'title', "description", "private"]
     success_url = "/accounts/profile"
+    template_name = 'create_bookmark.html'
 
 class RemoveView(DeleteView):
     model = Bookmark
@@ -68,9 +69,3 @@ class DisplayRedirectView(RedirectView):
         link.save()
         Click.objects.create(url=link, created=datetime.datetime.now())
         return super(DisplayRedirectView, self).get(request, args, **kwargs)
-
-
-
-
-
-
