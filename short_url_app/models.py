@@ -14,7 +14,7 @@ from django.utils import timezone
 
 
 class Bookmark(models.Model):
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(User, on_delete=models.PROTECT)
     url = models.URLField()
     title = models.CharField(max_length=20, default="")
     description = models.CharField(max_length=50, blank=True)
@@ -28,7 +28,7 @@ class Bookmark(models.Model):
 
 
 class Click(models.Model):
-    url = models.ForeignKey(Bookmark)
+    url = models.ForeignKey(Bookmark, on_delete=models.PROTECT)
     created = models.DateTimeField()
 
     class Meta:

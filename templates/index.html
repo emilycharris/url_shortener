@@ -21,7 +21,7 @@
             <td>{{ bookmark.description }}</td>
             <td><a href="{% url 'redirect_view' bookmark.hashid %}">emi.ly/{{ bookmark.hashid }}</a></td>
             <td class='table-centered'>{{ bookmark.click_count }}</td>
-              {% if bookmark.private = True %}
+              {% if bookmark.private == True %}
               <td class='table-centered'><i class=' glyphicon glyphicon-ok'></i> yes</td>
               {% else %}
               <td class='table-centered'><i class=' glyphicon glyphicon-remove'></i> no</td>
