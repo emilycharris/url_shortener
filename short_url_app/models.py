@@ -28,7 +28,7 @@ class Bookmark(models.Model):
 
 
 class Click(models.Model):
-    url = models.ForeignKey(Bookmark, on_delete=models.PROTECT)
+    url = models.ForeignKey(Bookmark, on_delete=models.CASCADE)
     created = models.DateTimeField()
 
     class Meta:
