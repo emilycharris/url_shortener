@@ -30,4 +30,4 @@ Only show bookmarks that are flagged as public in the list view.
 The application was created using the Python programming language, as well as the Django web framework. The shortened version of the URL was accomplished using hashids. Front-end development includes HTML, CSS, and Bootstrap. The application was successfully deployed to the web using Heroku.
 
 The live site can be viewed at the following address:
-https://emily-url-shortener.herokuapp.com/
+https://emi-ly.onrender.com/
